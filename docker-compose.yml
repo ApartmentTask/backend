@@ -1,0 +1,25 @@
+
+version: '3.8'
+
+services:
+  nodejs:
+    container_name: nodejs
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=mongodb+srv://khaledelshabrawy:khaledPass@apartments.e6zxqbs.mongodb.net/RealestateDatabase?retryWrites=true&w=majority&appName=Apartments
+    depends_on:
+      - mongodb
+
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    environment:
+      - MONGO_INITDB_DATABASE=RealestateDatabase
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
